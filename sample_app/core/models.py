@@ -17,7 +17,8 @@ class Post(models.Model):
 	def __str__(self):
 		return(str(self.post_slug))
 
-
+	def get_absolute_url(self):
+		return reverse("core:post_detail", kwargs={"slug" : self.post_slug})
 
 ################   P R E    S A V E    S T U F F     F O R     S L U G     C R E A T I O N
 
@@ -26,7 +27,7 @@ def create_slug(instance, new_slug=None):
 
 	if new_slug is None:
 		# slug = slugify(instance.blog_title)
-		slug = slugify('{person_name} the {person_job}'.format(person_name, person_job))
+		slug = slugify('{} the {}'.format(instance.person_name, instance.person_job))
 	else:
 		slug = new_slug
 

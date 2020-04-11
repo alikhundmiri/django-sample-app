@@ -20,13 +20,22 @@
 	<div class=" container col-lg-6 offset-lg-3 col-sm-12 col-md-12 text-center">
 		<h3>People we are thankful to</h3>
 		
+		<div class="card" style="width: 100%; margin-top: 20px">
+			<div class="card-body">
+				<h5 class="card-title">Who do you want to thank?</h5>
+				<h6 class="card-subtitle mb-2 text-muted">Share Love & Show Support</h6>
+				<p class="card-text">With the world in midst of an epidemic, lets share the love and show our support to the people who are working tirelessly. Share love now</p>
+				<a href="{% url 'core:new_post' %}" class="btn btn-outline-primary card-link">Post Support</a>
+
+			</div>
+		</div>
 		{% for post in posts %}
 		<div class="card" style="width: 100%; margin-top: 20px; background-color: #E0F0F8">
 			<div class="card-body">
-				<h5 class="card-title">{{post.person_name}}</h5>
+				<h5 class="card-title"><a href="{% url 'core:post_detail' post.post_slug %}">{{post.person_name}}</a></h5>
 				<h6 class="card-subtitle mb-2 text-muted">{{post.person_job}}</h6>
 				<p class="card-text">we appriciate your for contribution to help fight Corona Virus</p>
-				<a href="{% url 'core:post_detail' post.post_slug %}" class="card-link">Details</a>
+				<!-- <a href="{% url 'core:post_detail' post.post_slug %}" class="card-link">Details</a> -->
 				<!-- <a href="#" class="card-link">Another link</a> -->
 			</div>
 		</div>	
