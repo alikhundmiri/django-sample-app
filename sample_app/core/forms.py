@@ -1,16 +1,22 @@
 from django import forms
-from .models import Post
+from .models import Post, Detail
 
 class PostForm(forms.ModelForm):
-
-
     person_name = forms.CharField()
     person_job = forms.CharField()
-    # tags = forms.ModelMultipleChoiceField(queryset = taggers.objects.all(), widget=forms.CheckboxSelectMultiple())
     class Meta:
         model = Post
         fields = [
             "person_name",
             "person_job",
-            # "tags"
+        ]
+
+class DetailForm(forms.ModelForm):
+    details = forms.CharField()
+    
+    
+    class Meta:
+        model = Post
+        fields = [
+            "details",
         ]

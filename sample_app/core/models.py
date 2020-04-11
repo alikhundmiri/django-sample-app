@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -15,10 +16,24 @@ class Post(models.Model):
 	updated					=			models.DateTimeField(auto_now=True, auto_now_add=False)
 
 	def __str__(self):
-		return(str(self.post_slug))
+		return(str(self.person_name))
 
 	def get_absolute_url(self):
 		return reverse("core:post_detail", kwargs={"slug" : self.post_slug})
+
+
+class Detail(models.Model):
+	user 					=			models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
+	parent_post				=			models.ForeignKey(Post, related_name='description', default=1, on_delete=models.CASCADE)
+	
+	details 				=			models.TextField(max_length=300, blank=False)
+
+	timestamp				=			models.DateTimeField(auto_now=False, auto_now_add=True)
+	updated					=			models.DateTimeField(auto_now=True, auto_now_add=False)
+
+	def __str__(self):
+		return(str(self.parent_post))
+
 
 ################   P R E    S A V E    S T U F F     F O R     S L U G     C R E A T I O N
 
