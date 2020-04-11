@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 
 from .models import Post
@@ -6,6 +6,7 @@ from .models import Post
 
 # LANDING PAGE
 # this page will list all the entries
+# DONE
 def index(request):
 	posts = Post.objects.all()
 	context = {
@@ -23,14 +24,15 @@ def new_post(request):
 		'production' : settings.DEBUG,
 	}
 
-	return render(request, 'new_post.html', context)
+	return render(request, 'core/new_post.html', context)
 
 
 # this page will allow view of individial post
-def post_detail(request):
-
+def post_detail(request, slug=None):
+	post = get_object_or_404(Post, post_slug=slug)
 	context = {
 		'production' : settings.DEBUG,
+		'post' : post,
 	}
 
-	return render(request, 'post_detail.html', context)
+	return render(request, 'core/post_detail.html', context)
